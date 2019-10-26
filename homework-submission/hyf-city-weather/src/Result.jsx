@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import List from './List';
 const Result = ({ search }) => {
   const [fetchResult, setFetchResult] = useState('');
   useEffect(() => {
@@ -16,37 +16,26 @@ const Result = ({ search }) => {
             Humidity: result.main.humidity,
             Max_Temperature: result.main.temp_max,
             Min_Temperature: result.main.temp_min,
+            cod: result.cod,
           });
         })
         .catch(function() {});
     }
   }, [search]);
-  console.log(fetchResult);
-  return (
-    <ul>
-      <li>
+  if (fetchResult.cod === 200) {
+    return (
+      <React.Fragment>
         <span>Weather details</span>
-      </li>
-      <li>
-        <div>Location: {fetchResult.Location}</div>
-      </li>
-      <li>
-        <div>Description: {fetchResult.Description}</div>
-      </li>
-      <li>
-        <div>Humidity: {fetchResult.Humidity}</div>
-      </li>
-      <li>
-        <div>Temperature: {fetchResult.Temperature}</div>
-      </li>
-      <li>
-        <div>Max temperature: {fetchResult.Max_Temperature} °C</div>
-      </li>
-      <li>
-        <div>Max temperature: {fetchResult.Min_Temperature} °C</div>
-      </li>
-    </ul>
-  );
+        <List data={`Location: ${fetchResult.Location}`} />
+        <List data={`Humidity: ${fetchResult.Humidity}`} />
+        <List data={`Temperature: ${fetchResult.Temperature} °C`} />
+        <List data={`Max temperature: ${fetchResult.Max_Temperature} °C`} />
+        <List data={`Max temperature: ${fetchResult.Min_Temperature} °C`} />
+      </React.Fragment>
+    );
+  } else {
+    return 'Enter your city';
+  }
 };
 
 export default Result;
