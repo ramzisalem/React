@@ -15,11 +15,11 @@ function App() {
           <Route path="/create" exact>
             <CreateComponent />
           </Route>
-          <Route path="/:id">
-            <DetailComponent />
-          </Route>
-          <Route path="/" exact>
+          <Route path={['/', '/posts']} exact>
             <ListComponent />
+          </Route>
+          <Route path={['/:id', '/posts/:id']} exact>
+            <DetailComponent />
           </Route>
         </Switch>
       </Router>

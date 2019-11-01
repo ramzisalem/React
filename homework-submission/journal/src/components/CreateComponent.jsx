@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import App from '../App';
 
 const CreateComponent = ({ title, content }) => {
   const [postTitle, setPostTitle] = useState();

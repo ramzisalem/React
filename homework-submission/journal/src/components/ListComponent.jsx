@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import DetailComponent from './DetailComponent';
+import DeleteComponent from './DeleteComponent';
 
 const ListComponent = () => {
   const [posts, setPosts] = useState(null);
@@ -26,6 +28,7 @@ const ListComponent = () => {
           const postLink = `${item.id}`;
           const postTitle = item.title;
           const postContent = item.content;
+
           return (
             <div>
               <Link to={postLink}>
@@ -33,6 +36,14 @@ const ListComponent = () => {
               </Link>
 
               <p>{postContent}</p>
+              <form
+                onSubmit={event => {
+                  event.preventDefault();
+                  DeleteComponent(`${item.id}`);
+                }}
+              >
+                <input type="submit" value="delete" />
+              </form>
             </div>
           );
         })}
