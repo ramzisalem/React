@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import App from '../App';
+import axios from 'axios';
 
 const CreateComponent = ({ title, content }) => {
   const [postTitle, setPostTitle] = useState();
   const [postContent, setPostContent] = useState();
   const postToApi = (prop1, prop2) => {
-    fetch('http://142.93.51.96/posts', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    axios.post(
+      'http://142.93.51.96/posts',
+      {
         title: prop1,
         content: prop2,
-      }),
-    });
+      },
+      {
+        headers: {
+          Authorization: `Bearer:${localStorage.getItem('token')}`,
+        },
+      },
+    );
   };
   return (
     <form
